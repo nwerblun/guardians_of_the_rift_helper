@@ -1,4 +1,4 @@
-package nw.rifthelper.testutils;
+package nw.rifthelper.testutils_donotuse;
 
 import net.runelite.api.*;
 import net.runelite.api.coords.LocalPoint;
@@ -6,12 +6,13 @@ import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayUtil;
-import nw.rifthelper.GuardianOfTheRiftHelperZones;
 import nw.rifthelper.GuardiansOfTheRiftHelperConfig;
 import nw.rifthelper.GuardiansOfTheRiftHelperPlugin;
 
 import javax.inject.Inject;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TestOverlay extends Overlay
 {
@@ -20,6 +21,18 @@ public class TestOverlay extends Overlay
     private final GuardiansOfTheRiftHelperPlugin plugin;
     private final GuardiansOfTheRiftHelperConfig config;
     private static final int MAX_RENDER_DISTANCE = 50;
+
+    private final WorldArea testWaitingZone = new WorldArea(3602,9460,3626-3602,9483-9460,0);
+    private final WorldArea testCentralZone = new WorldArea(3597,9484,3635-3597,9519-9484,0);
+    private final WorldArea testPortalZone = new WorldArea(3588,9495,3589-3580 ,9511-9495,0);
+    private final WorldArea testAgilityZone = new WorldArea(3636,9495,3645-3636,9511-9495,0);
+
+    private final ArrayList<WorldArea> zones = new ArrayList<>(Arrays.asList(
+            testWaitingZone,
+            testCentralZone,
+            testPortalZone,
+            testAgilityZone
+    ));
 
     @Inject
     private TestOverlay (Client client, GuardiansOfTheRiftHelperPlugin plugin,
@@ -35,20 +48,19 @@ public class TestOverlay extends Overlay
     {
         WorldPoint playerLocation = client.getLocalPlayer().getWorldLocation();
 
-        for (GuardianOfTheRiftHelperZones zone : GuardianOfTheRiftHelperZones.zones)
+        for (WorldArea zone : zones)
         {
-            WorldArea zoneWorldArea = zone.getWorldArea();
-            if (zoneWorldArea.contains(playerLocation) &&
-                    zoneWorldArea.getPlane() == playerLocation.getPlane() &&
-                    zoneWorldArea.distanceTo(playerLocation) <= MAX_RENDER_DISTANCE)
+            if (zone.contains(playerLocation) &&
+                    zone.getPlane() == playerLocation.getPlane() &&
+                    zone.distanceTo(playerLocation) <= MAX_RENDER_DISTANCE)
             {
 //
 //                LocalPoint centerPoint = LocalPoint.fromWorld(playerWorldView,
-//                        zoneWorldArea.getX() + zoneWorldArea.getWidth() / 2,
-//                        zoneWorldArea.getY() + zoneWorldArea.getHeight() / 2);
-//                highlightArea(graphics, centerPoint, zoneWorldArea.getWidth(), zoneWorldArea.getHeight());
+//                        zone.getX() + zone.getWidth() / 2,
+//                        zone.getY() + zone.getHeight() / 2);
+//                highlightArea(graphics, centerPoint, zone.getWidth(), zone.getHeight());
 
-                for (WorldPoint point : zoneWorldArea.toWorldPointList())
+                for (WorldPoint point : zone.toWorldPointList())
                 {
                     highlightTile(graphics, point,
                             new Color(59, 126, 69, 255),

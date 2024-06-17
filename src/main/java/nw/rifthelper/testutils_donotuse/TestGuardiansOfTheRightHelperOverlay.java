@@ -1,4 +1,4 @@
-package nw.rifthelper.testutils;
+package nw.rifthelper.testutils_donotuse;
 
 
 import net.runelite.api.Client;
@@ -10,7 +10,7 @@ import net.runelite.client.ui.overlay.OverlayPanel;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
-import nw.rifthelper.GuardianOfTheRiftHelperZones;
+import nw.rifthelper.utils.GuardiansOfTheRiftZones;
 import nw.rifthelper.GuardiansOfTheRiftHelperConfig;
 import nw.rifthelper.GuardiansOfTheRiftHelperPlugin;
 
@@ -104,11 +104,11 @@ public class TestGuardiansOfTheRightHelperOverlay extends OverlayPanel
 
 
         String zone = "none";
-        if (GuardianOfTheRiftHelperZones.WAITING_ROOM.getWorldArea().contains(playerWorldPoint))
+        if (GuardiansOfTheRiftZones.WAITING_ROOM.getWorldArea().contains(playerWorldPoint))
         {
             zone = "waiting room";
         }
-        else if (GuardianOfTheRiftHelperZones.CENTRAL_AREA.getWorldArea().contains(playerWorldPoint))
+        else if (GuardiansOfTheRiftZones.CENTRAL_AREA.getWorldArea().contains(playerWorldPoint))
         {
             zone = "central area";
         }
