@@ -2,33 +2,74 @@ package nw.rifthelper.utils;
 
 import net.runelite.api.Client;
 
-import javax.inject.Inject;
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Iterator;
 
-public class Strategy
+public class Strategy implements Iterable<StrategyStep>
 {
-    /*
-    has a strat name
-    has a function called process last action which tells the current req to process the action
-    has a list of requirement objects
-        reqs have a list of step objects
-            steps are a single action
-            steps have a method isStepFinished
-            steps have a toString method
-        reqs have a method isReqFinished which is true if all steps inside are finished
+    private final String strategyName;
+    private final ArrayList<StrategyStage> strategyStages;
+    private int currentStage = 0;
 
-     */
-
-    @Inject
-    private Client client;
-
-    public Strategy(Client client)
+    public StrategyStage getCurrentStage(Client client)
     {
-        this.client = client;
+        if (strategyStages.isEmpty())
+        {
+            return null;
+        }
+
+        if (strategyStages.get(currentStage).isStageComplete(client) && currentStage < strategyStages.size())
+        {
+            currentStage++;
+        }
+        else if (currentStage == strategyStages.size())
+        {
+            return strategyStages.get(strategyStages.size() - 1);
+        }
+
+        return strategyStages.get(currentStage);
+    }
+
+    public Strategy(StrategyBuilder builder)
+    {
+        this.strategyStages = builder.strategyStages;
+        this.strategyName = builder.strategyName;
     }
 
     @Override
-    public String toString()
+    @Nonnull
+    public Iterator<StrategyStep> iterator()
     {
-       return "test";
+        return strategyStages.get(currentStage).iterator();
+    }
+
+    @Override
+    public String toString() {
+        return "Strategy: " + strategyName + " with " + strategyStages.size() + " stages.";
+    }
+
+    public static class StrategyBuilder
+    {
+        private String strategyName;
+        private ArrayList<StrategyStage> strategyStages = new ArrayList<>();
+
+        public StrategyBuilder addStage(StrategyStage stage)
+        {
+            this.strategyStages.add(stage);
+            return this;
+        }
+
+        public StrategyBuilder strategyName(String name)
+        {
+            this.strategyName = name;
+            return this;
+        }
+
+
+        public Strategy build()
+        {
+            return new Strategy(this);
+        }
     }
 }
