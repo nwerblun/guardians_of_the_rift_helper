@@ -41,4 +41,16 @@ public interface GuardiansOfTheRiftHelperConfig extends Config
 	{
 		return false;
 	}
+
+	@ConfigItem(
+			position = 3,
+			keyName = "placeholder3",
+			name = "Placeholder3",
+			description = "Placeholder3",
+			section = placeholderSection1
+	)
+	default Keybind hotkeyActivationKeybind()
+	{
+		return new Keybind(KeyEvent.VK_T, KeyEvent.SHIFT_DOWN_MASK);
+	}
 }
