@@ -1,4 +1,4 @@
-package nw.rifthelper.testutils_donotuse;
+package nw.rifthelper.testutils_donotuse_deletelater;
 
 
 import net.runelite.api.Client;
@@ -10,7 +10,7 @@ import net.runelite.client.ui.overlay.OverlayPanel;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
-import nw.rifthelper.utils.GuardiansOfTheRiftZones;
+import nw.rifthelper.GuardiansOfTheRiftZones;
 import nw.rifthelper.GuardiansOfTheRiftHelperConfig;
 import nw.rifthelper.GuardiansOfTheRiftHelperPlugin;
 

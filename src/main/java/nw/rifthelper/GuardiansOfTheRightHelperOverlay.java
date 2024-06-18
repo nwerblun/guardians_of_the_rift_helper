@@ -23,19 +23,24 @@ public class GuardiansOfTheRightHelperOverlay extends OverlayPanel
     private final Client client;
     private final GuardiansOfTheRiftHelperConfig config;
     private final GuardiansOfTheRiftHelperPlugin plugin;
+    private final GuardiansOfTheRiftHelperSession session;
+
     private static final String DISMISS_OVERLAY = "Dismiss";
     private static final String RESET_OVERLAY = "Reset Stats";
     private static final String OVERLAY_NAME = "GotR Overlay";
 
     @Inject
-    private GuardiansOfTheRightHelperOverlay(Client client, GuardiansOfTheRiftHelperConfig config,
-                                             GuardiansOfTheRiftHelperPlugin plugin)
+    private GuardiansOfTheRightHelperOverlay(Client client,
+                                             GuardiansOfTheRiftHelperConfig config,
+                                             GuardiansOfTheRiftHelperPlugin plugin,
+                                             GuardiansOfTheRiftHelperSession session)
     {
         setPosition(OverlayPosition.TOP_LEFT);
         setLayer(OverlayLayer.ABOVE_WIDGETS);
         this.client = client;
         this.config = config;
         this.plugin = plugin;
+        this.session = session;
         /*
         Overlay menus are opened by shift-right-clicking on the overlay
         Syntax is menuAction, Option, target
@@ -57,6 +62,10 @@ public class GuardiansOfTheRightHelperOverlay extends OverlayPanel
             return null;
         }
 
+        pickStrategy();
+        // loop through all steps in strategy, print them colored based on completion if they belong in current stage
+        // display time until next stage
+
         panelComponent.getChildren().add(TitleComponent.builder()
                 .text("Inventory Contents")
                 .color(Color.WHITE)
@@ -76,5 +85,23 @@ public class GuardiansOfTheRightHelperOverlay extends OverlayPanel
             }
         }
         return super.render(graphics);
+    }
+
+    private void pickStrategy()
+    {
+        // player is in waiting room and round has not started (from session)
+        if (false)
+        {
+
+        }
+        // player is in central zone and num players > 10 and round has not started
+        else if (false)
+        {
+
+        }
+        // Player in central zone, num players < 5 and round has not started
+        else if (true)
+        {
+        }
     }
 }

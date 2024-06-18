@@ -1,4 +1,4 @@
-package nw.rifthelper.utils;
+package nw.rifthelper;
 
 import java.util.List;
 import com.google.common.collect.ImmutableList;

@@ -15,7 +15,6 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.input.KeyManager;
-import nw.rifthelper.utils.GuardiansOfTheRiftZones;
 
 @Slf4j
 @PluginDescriptor(
@@ -76,12 +75,6 @@ public class GuardiansOfTheRiftHelperPlugin extends Plugin
 		return configManager.getConfig(GuardiansOfTheRiftHelperConfig.class);
 	}
 
-	private boolean isInWaitingRoom()
-	{
-		return GuardiansOfTheRiftZones.WAITING_ROOM.getWorldArea()
-				.contains(client.getLocalPlayer().getWorldLocation());
-	}
-
 	/*
 	Subscribe to gamechanged event.
 	If logins screen -> null everything
@@ -95,15 +88,15 @@ public class GuardiansOfTheRiftHelperPlugin extends Plugin
 		if (isOverlayActive())
 		{
 			/*
-			1. If player is in waiting room, display stats about last round, total points,
-			personal best, and a message that it's waiting for you to enter
-			2. If
+			1. get interacted/inventory
+			2. call session's update status method with inventory/null
 			 */
 		}
 	}
 
 	// subscribe to interact?
 	/*
+	1. call session's update status method with inventory/actor
 	1. if post-interact player is in central area but previously was in waiting room, we are now in game mode
 	 */
 }

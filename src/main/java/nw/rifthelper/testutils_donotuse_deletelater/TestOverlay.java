@@ -1,4 +1,4 @@
-package nw.rifthelper.testutils_donotuse;
+package nw.rifthelper.testutils_donotuse_deletelater;
 
 import net.runelite.api.*;
 import net.runelite.api.coords.LocalPoint;
