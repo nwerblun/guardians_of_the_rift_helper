@@ -8,7 +8,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
+import net.runelite.api.InventoryID;
+import net.runelite.api.Item;
+import net.runelite.api.ItemContainer;
 import net.runelite.api.events.GameTick;
+import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
@@ -54,10 +58,12 @@ public class GuardiansOfTheRiftHelperPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		session = null;
+		overlayActive = false;
+		session = new GuardiansOfTheRiftHelperSession(client);
 		currentZone = null;
 		overlayManager.add(overlay);
 		keyManager.registerKeyListener(keyListener);
+		overlay.setSession(session);
 	}
 
 	@Override
@@ -67,6 +73,8 @@ public class GuardiansOfTheRiftHelperPlugin extends Plugin
 		keyManager.unregisterKeyListener(keyListener);
 		session = null;
 		currentZone = null;
+		overlayActive = false;
+		overlay.setSession(null);
 	}
 
 	@Provides
@@ -87,12 +95,20 @@ public class GuardiansOfTheRiftHelperPlugin extends Plugin
 	{
 		if (isOverlayActive())
 		{
-			/*
-			1. get interacted/inventory
-			2. call session's update status method with inventory/null
-			 */
+
 		}
 	}
+
+	@Subscribe
+	public void onItemContainerChanged(ItemContainerChanged event)
+	{
+
+	}
+
+	// subscribe to chat message
+	/*
+	1. call session's update chat message function
+	 */
 
 	// subscribe to interact?
 	/*
